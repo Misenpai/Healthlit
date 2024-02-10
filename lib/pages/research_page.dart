@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class ResearchPaperSearch extends StatefulWidget {
   @override
@@ -9,26 +7,21 @@ class ResearchPaperSearch extends StatefulWidget {
 
 class _ResearchPaperSearchState extends State<ResearchPaperSearch> {
   TextEditingController _searchController = TextEditingController();
-  List<dynamic> _searchResults = [];
+  List<String> _searchResults = [];
 
-  Future<void> _searchPapers(String query) async {
-    String url =
-        'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?db=pubmed&retmode=json&term=$query';
+  void _searchPapers(String query) {
+    // Simulate search results
+    List<String> results = [
+      "Paper 1",
+      "Paper 2",
+      "Paper 3",
+      "Paper 4",
+      "Paper 5",
+    ];
 
-    try {
-      final response = await http.get(Uri.parse(url));
-
-      if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.body);
-        setState(() {
-          _searchResults = data['esearchresult']['idlist'];
-        });
-      } else {
-        throw Exception('Failed to load search results');
-      }
-    } catch (e) {
-      print('Error: $e');
-    }
+    setState(() {
+      _searchResults = results;
+    });
   }
 
   @override
